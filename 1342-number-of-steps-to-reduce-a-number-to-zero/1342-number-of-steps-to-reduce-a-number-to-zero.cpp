@@ -1,32 +1,59 @@
+/*compared this prob to MinStepsToOne problem, but 
+there are no overlapping subproblems in this,
+every call will be unique, MinStepsToOne me choice 
+thi ki aap kitne operatios peform kr skte ho, isme 
+if else wala scene tha*/
+
+/*dp gives runtime error, unnecessarily filling the array*/
+
+
+int numberOfSteps_helper(int num, int *ans) {
+    if(num == 0)
+        return 0;
+    
+    if(ans[num] != -1) 
+        return ans[num];
+    
+    int x = INT_MAX;
+    int y = INT_MAX;
+    
+    if(num%2 == 0) {
+        x = numberOfSteps_helper(num/2, ans);
+        ans[num] = 1 + x;
+    }
+    else {
+        y = numberOfSteps_helper(num-1, ans);
+        ans[num] = 1 + y;
+    }
+    return ans[num];
+}
 class Solution {
 public:
     int numberOfSteps(int num) {
-        
-//         int *arr = new int[num+1];
-        
-//         arr[0] = 0;
-//         arr[1] = 1;
-//         arr[2]= 2;
-        
-//         for(int i=3; i<=num; i++) {
-//             if(i%2 == 0){
-//                 arr[i] = arr[i/2] + 1;
-//             }
-//             else
-//                 arr[i] = arr[i-1] + 1;
-//         }
-//         return arr[num
-        int count=0;
-        while(num!=0){
-            if(num%2==0){
-                num/=2;
-            }else{
-                num-=1;
-            }
-            
-            count++;
+        int *ans = new int[num+1];
+        for(int i=0; i<=num; i++) {
+            ans[i] = -1;
         }
-        
-        return count;
+        int res = numberOfSteps_helper(num, ans);
+        return res;
     }
 };
+
+// class Solution {
+// public:
+//     int numberOfSteps(int num) {
+        
+//         int steps = 0;
+        
+//         while(num != 0) {
+//             if(num%2 == 0) {
+//                 num = num/2;
+//             }
+//             else
+//                 num = num - 1;
+            
+//             steps++;
+//         }
+//         return steps;
+//     }
+// };
