@@ -39,6 +39,7 @@ public:
     int climbStairs(int n) {
         int ans[60];
         
+//if n == 0, ie no stair is left, then only one possible way is there that is not to move.
         ans[0] = 1;
         ans[1] = 1;
         ans[2] = 2;
